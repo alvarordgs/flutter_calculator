@@ -1,23 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class CalcButton extends StatefulWidget {
-  final String btnValue;
-  final Color btnColor;
+class CalcButton extends StatelessWidget {
+  final String textValue;
+  final Color bgColor;
+  final Color fontColor;
+  final Function callback;
 
   const CalcButton(
-      {this.btnValue = '', this.btnColor = Colors.white, super.key});
+      {this.textValue = '',
+      this.bgColor = Colors.white,
+      this.fontColor = Colors.black54,
+      required this.callback,
+      super.key});
 
-  @override
-  State<CalcButton> createState() => _CalcButtonState();
-}
-
-class _CalcButtonState extends State<CalcButton> {
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-            backgroundColor: widget.btnColor, minimumSize: Size.zero),
-        child: Text(widget.btnValue));
+    return GestureDetector(
+      onTap: () {
+        callback(textValue);
+      },
+      child: Container(
+          color: bgColor,
+          child: Center(
+            child: DefaultTextStyle(
+              style: GoogleFonts.concertOne(
+                textStyle: TextStyle(
+                  fontSize: 32,
+                  color: fontColor,
+                ),
+              ),
+              child: Text(textValue),
+            ),
+          )),
+    );
   }
 }
